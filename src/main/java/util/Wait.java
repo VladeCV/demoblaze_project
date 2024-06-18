@@ -1,6 +1,5 @@
 package util;
 
-import com.demoblaze.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,8 +16,9 @@ public class Wait {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, 10);  // Inicializa el WebDriverWait aquí.
     }
+
     public void implicitWait() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
     }
 
     public void waitAlert() {

@@ -3,7 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-public class BuyProductsTest extends BaseTest{
+public class BuyProductsTest extends BaseTest {
 
     @Test
     public void testBuyProducts() {
@@ -11,7 +11,42 @@ public class BuyProductsTest extends BaseTest{
         String productOne = "Apple monitor 24";
         String productTwo = "ASUS Full HD";
 
+        // DATA USER PAYMENT
+        String name = "Camilo Cabrera";
+        String country = "Bolivia";
+        String city = "La Paz";
+        String card = "123456789";
+        String month = "12";
+        String year = "2023";
+
+        //DATA USER ACCOUNT
+        String userName = "vbfgrt";
+        String password = "p2kkrosameeltrozo";
+
+
+        MonitorCategoryPage monitorCategoryPage = new MonitorCategoryPage(driver);
+        ProductPage productPage = new ProductPage(driver);
+        ProductDescriptionPage productDescriptionPage = new ProductDescriptionPage(driver);
+        MenuPage menuPage = new MenuPage(driver);
+        CartPage cartPage = new CartPage(driver);
+        PaymentPage paymentPage = new PaymentPage(driver);
+        AccountPage accountPage = new AccountPage(driver);
+
+        //Crea cuenta
+        accountPage.clickSignUp();
+        wait.implicitWait();
+        accountPage.fillSignUpForm(userName, password);
+        wait.waitAlert();
+        driver.switchTo().alert().accept();
+
+        // Inicia sesion
+        accountPage.clickLogin();
+        wait.implicitWait();
+        accountPage.fillLoginForm(userName, password);
+
         // Selecciona categoria
+        wait.implicitWait();
+        driver.switchTo().defaultContent();
         monitorCategoryPage.selectMonitorCategory();
 
         // Click sobre el producto a comprar
@@ -57,7 +92,17 @@ public class BuyProductsTest extends BaseTest{
         // Completa la compra
         cartPage.clickPlaceOrder();
 
+        // Completa el formulario de pago
+        paymentPage.fillPaymentForm(name, country, city, card, month, year);
+
+        // Realiza la compra
+        paymentPage.clickPurchase();
         /*CONTINUAS CAMILO*/
+
+        // Cierra la confirmacion de venta
+        paymentPage.clickConfirmation();
+
+        wait.implicitWait();
 
 
     }
