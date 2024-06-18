@@ -20,8 +20,9 @@ public class ProductPage extends BasePage {
     }
 
     public void clickProductSelected(String product) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(getProductSelector(product)));
+//        WebDriverWait wait = new WebDriverWait(driver, 30);
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(getProductSelector(product)));
+        wait.visibilityOfElementLocated(getProductSelector(product));
         driver.findElement(getProductSelector(product)).click();
     }
 

@@ -2,6 +2,8 @@ package com.demoblaze.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductDescriptionPage extends BasePage {
     private final By productNameLabel = By.tagName("h2");
@@ -13,6 +15,9 @@ public class ProductDescriptionPage extends BasePage {
     }
 
     public String getProductName () {
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(productNameLabel));
+        wait.visibilityOfElementLocated(productNameLabel);
         return driver.findElement(productNameLabel).getText();
     }
 
@@ -25,6 +30,9 @@ public class ProductDescriptionPage extends BasePage {
     }
 
     public void clickAddToCartBtn() {
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        wait.until(ExpectedConditions.elementToBeClickable(addToCartBtn));
+        wait.elementToBeClickable(addToCartBtn);
         driver.findElement(addToCartBtn).click();
     }
 
