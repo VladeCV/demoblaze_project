@@ -21,8 +21,8 @@ public class ProductDescriptionPage extends BasePage {
         return driver.findElement(productNameLabel).getText();
     }
 
-    public String getProductPrice () {
-        return driver.findElement(productPriceLabel).getText();
+    public Double getProductPrice () {
+        return Double.parseDouble(driver.findElement(productPriceLabel).getText());
     }
 
     public boolean productDescriptionIsVisible () {

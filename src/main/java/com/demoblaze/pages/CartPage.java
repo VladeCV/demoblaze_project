@@ -21,8 +21,8 @@ public class CartPage extends BasePage {
         return driver.findElement(listCartProductsTable).isDisplayed();
     }
 
-    public int getTotalPrice() {
-        return Integer.parseInt(driver.findElement(totalPriceLabel).getText());
+    public double getTotalPrice() {
+        return Double.parseDouble(driver.findElement(totalPriceLabel).getText());
     }
 
 

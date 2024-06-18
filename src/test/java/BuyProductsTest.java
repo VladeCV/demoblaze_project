@@ -11,12 +11,6 @@ public class BuyProductsTest extends BaseTest{
         String productOne = "Apple monitor 24";
         String productTwo = "ASUS Full HD";
 
-        MonitorCategoryPage monitorCategoryPage = new MonitorCategoryPage(driver);
-        ProductPage productPage = new ProductPage(driver);
-        ProductDescriptionPage productDescriptionPage = new ProductDescriptionPage(driver);
-        MenuPage menuPage = new MenuPage(driver);
-        CartPage cartPage = new CartPage(driver);
-
         // Selecciona categoria
         monitorCategoryPage.selectMonitorCategory();
 
