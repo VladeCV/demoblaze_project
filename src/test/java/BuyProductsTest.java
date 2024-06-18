@@ -2,7 +2,6 @@ import com.demoblaze.pages.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
 
 public class BuyProductsTest extends BaseTest{
 
@@ -29,32 +28,34 @@ public class BuyProductsTest extends BaseTest{
         productDescriptionPage.clickAddToCartBtn();
 
         // Cierra la ventana de alerta
+        wait.waitAlert();
         driver.switchTo().alert().accept();
         driver.switchTo().defaultContent();
 
         // Volvemos al home
         menuPage.clickHomeLabel();
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wait.implicitWait();
 
         // Selecciona categoria
         monitorCategoryPage.selectMonitorCategory();
 
         // Click sobre el producto a comprar
         productPage.clickProductSelected(productTwo);
-        Assert.assertEquals("Name of products are different", productOne, productDescriptionPage.getProductName());
+        Assert.assertEquals("Name of products are different", productTwo, productDescriptionPage.getProductName());
 
         // Añade el producto al carrito
         productDescriptionPage.clickAddToCartBtn();
 
         // Cierra la ventana de alerta
+        wait.waitAlert();
         driver.switchTo().alert().accept();
         driver.switchTo().defaultContent();
 
         // Entra al carrito de compras
         menuPage.clickCartLabel();
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wait.implicitWait();
 
         // Validamos si el carrito contiene productos
         cartPage.listCartProductsIsVisible();
