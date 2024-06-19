@@ -17,10 +17,10 @@ public class BaseTest {
     protected ProductDescriptionPage productDescriptionPage;
     protected MenuPage menuPage;
     protected CartPage cartPage;
-    protected AccountPage accountPage;
     protected PaymentPage paymentPage;
     protected ConfirmationPurchase confirmationPurchase;
     protected LogInPage loginPage;
+    protected SignUpPage signUpPage;
 
     @BeforeMethod
     public void setup() {
@@ -35,10 +35,10 @@ public class BaseTest {
         productDescriptionPage = new ProductDescriptionPage(driver);
         menuPage = new MenuPage(driver);
         cartPage = new CartPage(driver);
-        accountPage = new AccountPage(driver);
         paymentPage = new PaymentPage(driver);
         confirmationPurchase = new ConfirmationPurchase(driver);
         loginPage = new LogInPage(driver);
+        signUpPage = new SignUpPage(driver);
 
 
         wait = new Wait(driver);

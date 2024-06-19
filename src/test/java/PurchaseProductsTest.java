@@ -34,7 +34,7 @@ public class PurchaseProductsTest extends BaseTest {
         //Crea cuenta
         menuPage.clickOnMenuOption(SING_UP);
 //        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        accountPage.fillSignUpForm(userName, password);
+        signUpPage.fillSignUpForm(userName, password);
 
         wait.waitAlert();
         driver.switchTo().alert().accept();
@@ -42,7 +42,7 @@ public class PurchaseProductsTest extends BaseTest {
 
         // Inicia sesion
         menuPage.clickOnMenuOption(LOG_IN);
-        accountPage.fillLoginForm(userName, password);
+        loginPage.fillLoginForm(userName, password);
 
         // Selecciona categoria
 //        driver.switchTo().defaultContent();
