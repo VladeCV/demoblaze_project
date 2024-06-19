@@ -13,8 +13,6 @@ public class PaymentPage extends BasePage {
     private final By yearInput = By.id("year");
     private final By purchaseBtn = By.xpath("//button[text() = 'Purchase']");
 
-    private final By confirmationBtn = By.xpath("//button[text() = 'OK']");
-
     public PaymentPage(WebDriver driver) {
         super(driver);
     }
@@ -33,7 +31,4 @@ public class PaymentPage extends BasePage {
         driver.findElement(purchaseBtn).click();
     }
 
-    public void clickConfirmation() {
-        driver.findElement(confirmationBtn).click();
-    }
 }

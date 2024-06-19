@@ -1,9 +1,11 @@
 import com.demoblaze.pages.*;
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import util.Wait;
+import com.demoblaze.util.Wait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
@@ -15,12 +17,17 @@ public class BaseTest {
     protected ProductDescriptionPage productDescriptionPage;
     protected MenuPage menuPage;
     protected CartPage cartPage;
+    protected AccountPage accountPage;
+    protected PaymentPage paymentPage;
+    protected ConfirmationPurchase confirmationPurchase;
+    protected LogInPage loginPage;
 
-    @Before
+    @BeforeMethod
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("https://www.demoblaze.com/");
 
         monitorCategoryPage = new MonitorCategoryPage(driver);
@@ -28,12 +35,17 @@ public class BaseTest {
         productDescriptionPage = new ProductDescriptionPage(driver);
         menuPage = new MenuPage(driver);
         cartPage = new CartPage(driver);
+        accountPage = new AccountPage(driver);
+        paymentPage = new PaymentPage(driver);
+        confirmationPurchase = new ConfirmationPurchase(driver);
+        loginPage = new LogInPage(driver);
+
 
         wait = new Wait(driver);
     }
 
-    @After
-    public void tearDown() throws InterruptedException {
+    @AfterMethod
+    public void tearDown() {
         if (driver != null)
             driver.quit();
     }

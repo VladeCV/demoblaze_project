@@ -8,9 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class ProductPage extends BasePage {
-//    private final By asusMonitorBtn = By.xpath("//*[@id=\"tbodyid\"]//a[contains(text(),\"Apple monitor 24\")]");
-//    private final By sonyVaioBtn = By.xpath("//*[@id=\"tbodyid\"]//a[contains(text(),\"ASUS Full HD\")]");
-
     public ProductPage(WebDriver driver) {
         super(driver);
     }
@@ -20,8 +17,6 @@ public class ProductPage extends BasePage {
     }
 
     public void clickProductSelected(String product) {
-//        WebDriverWait wait = new WebDriverWait(driver, 30);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(getProductSelector(product)));
         wait.visibilityOfElementLocated(getProductSelector(product));
         driver.findElement(getProductSelector(product)).click();
     }

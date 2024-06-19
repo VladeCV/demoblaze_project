@@ -1,7 +1,7 @@
 package com.demoblaze.pages;
 
+import com.demoblaze.util.Wait;
 import org.openqa.selenium.WebDriver;
-import util.Wait;
 
 public class BasePage {
 

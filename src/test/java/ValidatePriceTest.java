@@ -1,14 +1,17 @@
 import com.demoblaze.pages.*;
 import org.junit.Assert;
+import com.demoblaze.util.PriceUtils;
 import org.testng.annotations.Test;
-import util.PriceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.demoblaze.enums.MenuOption.CART;
+import static com.demoblaze.enums.MenuOption.HOME;
+
 public class ValidatePriceTest extends BaseTest {
 
-    @Test
+    @Test(description = "Validate if the sum of the price of the products is the same from the total price of the cart")
     public void testValidatePrice() {
         // DATA
         String productOne = "Samsung galaxy s6";
@@ -16,8 +19,10 @@ public class ValidatePriceTest extends BaseTest {
 
         List<Double> individualPrices = new ArrayList<>();
 
+        ProductPage productPage1 = new ProductPage(driver);
+
         // Click sobre el producto a comprar
-        productPage.clickProductSelected(productOne);
+        productPage1.clickProductSelected(productOne);
 
         // Añadiendo el precio a la lista
         individualPrices.add(productDescriptionPage.getProductPrice());
@@ -31,12 +36,7 @@ public class ValidatePriceTest extends BaseTest {
         driver.switchTo().defaultContent();
 
         // Volvemos al home
-        menuPage.clickHomeLabel();
-
-        wait.implicitWait();
-
-        // Selecciona categoria
-        monitorCategoryPage.selectMonitorCategory();
+        menuPage.clickOnMenuOption(HOME);
 
         // Click sobre el producto a comprar
         productPage.clickProductSelected(productTwo);
@@ -53,13 +53,8 @@ public class ValidatePriceTest extends BaseTest {
         driver.switchTo().defaultContent();
 
         // Entra al carrito de compras
-        menuPage.clickCartLabel();
+        menuPage.clickOnMenuOption(CART);
 
-        wait.implicitWait();
-
-        // Validamos si el carrito contiene productos
-        cartPage.listCartProductsIsVisible();
-
-        Assert.assertEquals("The prices are different", PriceUtils.sumPrices(individualPrices), cartPage.getTotalPrice());
+        Assert.assertEquals("The total sum of the prices of the products is different from the total price of the cart.", cartPage.getTotalPrice(), PriceUtils.sumPrices(individualPrices));
     }
 }

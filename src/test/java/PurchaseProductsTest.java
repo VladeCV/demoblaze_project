@@ -1,12 +1,16 @@
 import com.demoblaze.pages.*;
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
+
+import static com.demoblaze.enums.MenuOption.*;
 
 
-public class BuyProductsTest extends BaseTest {
+public class PurchaseProductsTest extends BaseTest {
 
-    @Test
-    public void testBuyProducts() {
+    @Test(description = "Validate a correct purchase of products")
+    public void testPurchaseProducts() {
         // DATA
         String productOne = "Apple monitor 24";
         String productTwo = "ASUS Full HD";
@@ -20,38 +24,35 @@ public class BuyProductsTest extends BaseTest {
         String year = "2023";
 
         //DATA USER ACCOUNT
-        String userName = "vbfgrt";
-        String password = "p2kkrosameeltrozo";
-
-
-        MonitorCategoryPage monitorCategoryPage = new MonitorCategoryPage(driver);
-        ProductPage productPage = new ProductPage(driver);
-        ProductDescriptionPage productDescriptionPage = new ProductDescriptionPage(driver);
-        MenuPage menuPage = new MenuPage(driver);
-        CartPage cartPage = new CartPage(driver);
-        PaymentPage paymentPage = new PaymentPage(driver);
-        AccountPage accountPage = new AccountPage(driver);
+//        String userName = "vbfgrt";
+//        String password = "p2kkrosameeltrozo";
+//        String userName = "asdas11";
+//        String password = "asdwqda";
+        String userName = "asdas16";
+        String password = "asdwqda";
 
         //Crea cuenta
-        accountPage.clickSignUp();
-        wait.implicitWait();
+        menuPage.clickOnMenuOption(SING_UP);
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         accountPage.fillSignUpForm(userName, password);
+
         wait.waitAlert();
         driver.switchTo().alert().accept();
+        driver.switchTo().defaultContent();
 
         // Inicia sesion
-        accountPage.clickLogin();
-        wait.implicitWait();
+        menuPage.clickOnMenuOption(LOG_IN);
         accountPage.fillLoginForm(userName, password);
 
         // Selecciona categoria
-        wait.implicitWait();
-        driver.switchTo().defaultContent();
+//        driver.switchTo().defaultContent();
+
+        // Selecciona la categoria de los productos
         monitorCategoryPage.selectMonitorCategory();
 
         // Click sobre el producto a comprar
         productPage.clickProductSelected(productOne);
-        Assert.assertEquals("Name of products are different", productOne, productDescriptionPage.getProductName());
+        Assert.assertEquals(productOne, productDescriptionPage.getProductName(), "Name of products are different");
 
         // Añade el producto al carrito
         productDescriptionPage.clickAddToCartBtn();
@@ -62,16 +63,14 @@ public class BuyProductsTest extends BaseTest {
         driver.switchTo().defaultContent();
 
         // Volvemos al home
-        menuPage.clickHomeLabel();
-
-        wait.implicitWait();
+        menuPage.clickOnMenuOption(HOME);
 
         // Selecciona categoria
         monitorCategoryPage.selectMonitorCategory();
 
         // Click sobre el producto a comprar
         productPage.clickProductSelected(productTwo);
-        Assert.assertEquals("Name of products are different", productTwo, productDescriptionPage.getProductName());
+        Assert.assertEquals(productTwo, productDescriptionPage.getProductName(), "Name of products are different");
 
         // Añade el producto al carrito
         productDescriptionPage.clickAddToCartBtn();
@@ -82,12 +81,7 @@ public class BuyProductsTest extends BaseTest {
         driver.switchTo().defaultContent();
 
         // Entra al carrito de compras
-        menuPage.clickCartLabel();
-
-        wait.implicitWait();
-
-        // Validamos si el carrito contiene productos
-        cartPage.listCartProductsIsVisible();
+        menuPage.clickOnMenuOption(CART);
 
         // Completa la compra
         cartPage.clickPlaceOrder();
@@ -97,12 +91,11 @@ public class BuyProductsTest extends BaseTest {
 
         // Realiza la compra
         paymentPage.clickPurchase();
-        /*CONTINUAS CAMILO*/
+
+        Assert.assertEquals(confirmationPurchase.getConfirmationMessage(), "Thank you for your purchase!", "Error completing purchase");
 
         // Cierra la confirmacion de venta
-        paymentPage.clickConfirmation();
-
-        wait.implicitWait();
+        confirmationPurchase.clickConfirmation();
 
 
     }
