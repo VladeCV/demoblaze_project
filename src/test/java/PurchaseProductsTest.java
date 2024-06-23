@@ -24,28 +24,25 @@ public class PurchaseProductsTest extends BaseTest {
         String year = "2023";
 
         //DATA USER ACCOUNT
-//        String userName = "vbfgrt";
-//        String password = "p2kkrosameeltrozo";
-//        String userName = "asdas11";
-//        String password = "asdwqda";
-        String userName = "asdas16";
-        String password = "asdwqda";
+        String userName = "rtbsd";
+        String password = "12354";
 
         //Crea cuenta
         menuPage.clickOnMenuOption(SING_UP);
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         signUpPage.fillSignUpForm(userName, password);
 
         wait.waitAlert();
         driver.switchTo().alert().accept();
-        driver.switchTo().defaultContent();
 
         // Inicia sesion
         menuPage.clickOnMenuOption(LOG_IN);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage.fillLoginForm(userName, password);
 
-        // Selecciona categoria
-//        driver.switchTo().defaultContent();
+
+        //Scroll down
+        scroll.scrollDown();
 
         // Selecciona la categoria de los productos
         monitorCategoryPage.selectMonitorCategory();

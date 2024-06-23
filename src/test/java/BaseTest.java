@@ -1,4 +1,5 @@
 import com.demoblaze.pages.*;
+import com.demoblaze.util.Scroll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import com.demoblaze.util.Wait;
@@ -11,7 +12,7 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected Wait wait;
-
+    protected Scroll scroll;
     protected MonitorCategoryPage monitorCategoryPage;
     protected ProductPage productPage;
     protected ProductDescriptionPage productDescriptionPage;
@@ -40,7 +41,7 @@ public class BaseTest {
         loginPage = new LogInPage(driver);
         signUpPage = new SignUpPage(driver);
 
-
+        scroll = new Scroll(driver);
         wait = new Wait(driver);
     }
 
