@@ -24,7 +24,7 @@ public class PurchaseProductsTest extends BaseTest {
         String year = "2023";
 
         //DATA USER ACCOUNT
-        String userName = "rtbsd";
+        String userName = "uyiohjh";
         String password = "12354";
 
         //Crea cuenta
