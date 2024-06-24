@@ -1,11 +1,20 @@
+import com.aventstack.extentreports.Status;
+import com.demoblaze.helpers.ReportManager;
+import com.demoblaze.helpers.ScreenShotHelper;
 import com.demoblaze.pages.*;
 import com.demoblaze.util.Scroll;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import com.demoblaze.util.Wait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -22,14 +31,23 @@ public class BaseTest {
     protected ConfirmationPurchase confirmationPurchase;
     protected LogInPage loginPage;
     protected SignUpPage signUpPage;
+    private static final Logger log = LogManager.getLogger(BaseTest.class);
+
+    @BeforeSuite
+    public static void setupSuite() throws Exception {
+        ReportManager.init("Reports", "DemoBlazeAutomation");
+    }
 
     @BeforeMethod
-    public void setup() {
+    public void setup(Method method) throws Exception {
+        ReportManager.getInstance().startTest(method.getName());
+
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get("https://www.demoblaze.com/");
+        String url = "https://www.demoblaze.com/";
+        driver.get(url);
 
         monitorCategoryPage = new MonitorCategoryPage(driver);
         productPage = new ProductPage(driver);
@@ -43,11 +61,45 @@ public class BaseTest {
 
         scroll = new Scroll(driver);
         wait = new Wait(driver);
+        log.info("Navigate to {}", url);
+        ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO, "Navigate to Demoblaze page");
+
     }
 
     @AfterMethod
-    public void tearDown() {
-        if (driver != null)
-            driver.quit();
+    public void tearDown(ITestResult iTestResult) throws InterruptedException {
+        try {
+            switch (iTestResult.getStatus()) {
+                case ITestResult.FAILURE:
+                    ReportManager.getInstance().getTest().log(Status.FAIL, "Test failed");
+                    break;
+                case ITestResult.SKIP:
+                    ReportManager.getInstance().getTest().log(Status.SKIP, "Test skipped");
+                    break;
+                case ITestResult.SUCCESS:
+                    ReportManager.getInstance().getTest().log(Status.PASS, "Test passed");
+                    break;
+                default:
+                    ReportManager.getInstance().getTest().log(Status.FAIL, "Test incompleto");
+            }
+
+            if (iTestResult.getStatus() != ITestResult.SUCCESS && iTestResult.getThrowable() != null) {
+                ReportManager.getInstance().getTest().log(Status.FAIL, iTestResult.getThrowable().getMessage());
+                ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.FAIL, "Failure image");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Thread.sleep(1000);
+            if (driver != null)
+                driver.quit();
+            log.info("Closing the webdriver");
+        }
     }
+
+    @AfterSuite
+    public static void tearDownSuite() {
+        ReportManager.getInstance().flush();
+    }
+
 }

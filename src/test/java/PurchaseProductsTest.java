@@ -1,4 +1,3 @@
-import com.demoblaze.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -24,7 +23,7 @@ public class PurchaseProductsTest extends BaseTest {
         String year = "2023";
 
         //DATA USER ACCOUNT
-        String userName = "uyiohjh";
+        String userName = "jknunh";
         String password = "12354";
 
         //Crea cuenta
