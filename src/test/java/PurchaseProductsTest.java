@@ -23,7 +23,7 @@ public class PurchaseProductsTest extends BaseTest {
         String year = "2023";
 
         //DATA USER ACCOUNT
-        String userName = "jknunh";
+        String userName = "popojpoj";
         String password = "12354";
 
         //Crea cuenta

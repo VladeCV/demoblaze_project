@@ -1,5 +1,7 @@
 package com.demoblaze.pages;
 
+import com.aventstack.extentreports.Status;
+import com.demoblaze.helpers.ScreenShotHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -25,14 +27,15 @@ public class LogInPage extends BasePage {
                 driver.findElement(usernameLoginInput).sendKeys(username);
                 wait.visibilityOfElementLocated(passwordLoginInput);
                 driver.findElement(passwordLoginInput).sendKeys(password);
-                break; // if successful, break the loop
+                ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO,"Enter credentials");
+                break;
             } catch (StaleElementReferenceException e) {
                 if (attempt == MAX_ATTEMPTS - 1) {
-                    throw e; // if it's the last attempt, rethrow the exception
+                    throw e;
                 }
-                // if not the last attempt, ignore the exception and try again
             }
         }
+        ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO,"Login");
         driver.findElement(loginConfirmation).click();
     }
 

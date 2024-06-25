@@ -1,5 +1,7 @@
 package com.demoblaze.pages;
 
+import com.aventstack.extentreports.Status;
+import com.demoblaze.helpers.ScreenShotHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -18,5 +20,6 @@ public class ConfirmationPurchase extends BasePage {
 
     public void clickConfirmation() {
         driver.findElement(confirmationBtn).click();
+        ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO, "Click on Confirmation");
     }
 }

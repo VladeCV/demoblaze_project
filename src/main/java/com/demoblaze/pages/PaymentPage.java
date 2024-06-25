@@ -1,5 +1,7 @@
 package com.demoblaze.pages;
 
+import com.aventstack.extentreports.Status;
+import com.demoblaze.helpers.ScreenShotHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 
@@ -24,11 +26,12 @@ public class PaymentPage extends BasePage {
         driver.findElement(creditCardInput).sendKeys(creditCard);
         driver.findElement(monthInput).sendKeys(month);
         driver.findElement(yearInput).sendKeys(year);
-
+        ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO, "Enter payment information");
     }
 
     public void clickPurchase() {
         driver.findElement(purchaseBtn).click();
+        ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO, "Click on Purchase");
     }
 
 }
