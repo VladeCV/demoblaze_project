@@ -9,13 +9,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import com.demoblaze.util.Wait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
+
+import static com.demoblaze.webdriver.WebDriverFactory.getDriver;
 
 public class BaseTest {
 
@@ -39,14 +38,12 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void setup(Method method) throws Exception {
+    @Parameters({"url", "browser"})
+    public void setup(Method method, String url, String browser) throws Exception {
         ReportManager.getInstance().startTest(method.getName());
 
-        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driver = getDriver(browser);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        String url = "https://www.demoblaze.com/";
         driver.get(url);
 
         monitorCategoryPage = new MonitorCategoryPage(driver);

@@ -24,7 +24,4 @@ public class ProductPage extends BasePage {
         ScreenShotHelper.takeScreenShotAndAdToHTMLReport(driver, Status.INFO, "Click on " + product);
     }
 
-//    public boolean listProductsIsVisible() {
-//        return driver.findElement(asusMonitorBtn).isDisplayed() || driver.findElement(sonyVaioBtn).isDisplayed();
-//    }
 }

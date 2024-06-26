@@ -6,7 +6,7 @@ import static com.demoblaze.enums.MenuOption.LOG_IN;
 public class LoginTest extends BaseTest {
 
     @Test(description = "Validate login with empty credentials")
-    public void tetLoginWithoutCredentials() {
+    public void testLoginWithoutCredentials() {
         menuPage.clickOnMenuOption(LOG_IN);
 
         loginPage.clickOnLogin();
